@@ -2,6 +2,10 @@
 
 StocKraken HTTP Request is a set of lightweight HTTP libraries available in multiple languages, built and maintained by clickoding. Base on Unirest for PHP.
 
+## Documentations
+
+Full documentation can be read [here](https://stockraken.clickoding.id/).
+
 ## Features
 
 * Utility methods to call GET, HEAD, POST, PUT, DELETE, CONNECT, OPTIONS, TRACE, PATCH requests
