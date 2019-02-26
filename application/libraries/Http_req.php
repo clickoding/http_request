@@ -66,6 +66,24 @@ class Http_req {
 
 	} // end get_method_req
 
+	protected function send($method = 'GET', $url = '', $header = NULL, $body = NULL) {
+
+		if (isset($this->mashape)) {
+			
+			Unirest\Request::setMashapeKey($this->mashape);
+
+		} // end if
+
+		if (isset($this->timeout) && $this->timeout > 0) {
+			
+			Unirest\Request::timeout($this->timeout); // 5s timeout
+
+		} // end if
+
+		return Unirest\Request::send(strtoupper($method), $url, $header, $body);
+
+	} // end basic_send
+
 	public function __construct() {
 
 		$this->load->config('http_req', TRUE);
@@ -90,33 +108,15 @@ class Http_req {
 
 	} // end _get or $this
 
-	public function send($method = 'GET', $url = '', $header = NULL, $body = NULL) {
-
-		if (isset($this->mashape)) {
-			
-			Unirest\Request::setMashapeKey($this->mashape);
-
-		} // end if
-
-		if (isset($this->timeout) && $this->timeout > 0) {
-			
-			Unirest\Request::timeout($this->timeout); // 5s timeout
-
-		} // end if
-
-		return Unirest\Request::send(strtoupper($method), $url, $header, $body);
-
-	} // end basic_send
-
 	public function get($uri, $header = array(), $param = NULL) {
 
-		if (isset(self::$headers)) {
+		if (isset(self::$headers) && count($header) <= 0) {
 			
 			$header 	= self::$headers;
 
 		} // end if
 
-		if (isset(self::$body)) {
+		if (isset(self::$body) && $param === NULL) {
 			
 			$param 		= self::$body;
 
@@ -128,13 +128,13 @@ class Http_req {
 
 	public function post($uri, $header = array(), $body = NULL) {
 
-		if (isset(self::$headers)) {
+		if (isset(self::$headers) && count($header) <= 0) {
 			
 			$header 	= self::$headers;
 
 		} // end if
 
-		if (isset(self::$body)) {
+		if (isset(self::$body) && $body === NULL) {
 			
 			$body 		= self::$body;
 
@@ -146,13 +146,13 @@ class Http_req {
 
 	public function put($uri, $header = array(), $body = NULL) {
 
-		if (isset(self::$headers)) {
+		if (isset(self::$headers) && count($header) <= 0) {
 			
 			$header 	= self::$headers;
 
 		} // end if
 
-		if (isset(self::$body)) {
+		if (isset(self::$body) && $body === NULL) {
 			
 			$body 		= self::$body;
 
@@ -164,13 +164,13 @@ class Http_req {
 
 	public function patch($uri, $header = array(), $body = NULL) {
 
-		if (isset(self::$headers)) {
+		if (isset(self::$headers) && count($header) <= 0) {
 			
 			$header 	= self::$headers;
 
 		} // end if
 
-		if (isset(self::$body)) {
+		if (isset(self::$body) && $body === NULL) {
 			
 			$body 		= self::$body;
 
@@ -182,13 +182,13 @@ class Http_req {
 
 	public function delete($uri, $header = array(), $body = NULL) {
 
-		if (isset(self::$headers)) {
+		if (isset(self::$headers) && count($header) <= 0) {
 			
 			$header 	= self::$headers;
 
 		} // end if
 
-		if (isset(self::$body)) {
+		if (isset(self::$body) && $body === NULL) {
 			
 			$body 		= self::$body;
 
@@ -202,13 +202,13 @@ class Http_req {
 
 		$method = $this->get_method_req($method);
 
-		if (isset(self::$headers)) {
+		if (isset(self::$headers) && count($headers) <= 0) {
 			
 			$headers 	= self::$headers;
 
 		} // end if
 
-		if (isset(self::$body)) {
+		if (isset(self::$body) && $body === NULL) {
 			
 			$body 		= self::$body;
 
