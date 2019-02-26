@@ -122,7 +122,7 @@ class Http_req {
 
 		} // end if
 
-		return Unirest\Request::get($url, $header, $param);
+		return Unirest\Request::get($uri, $header, $param);
 
 	} // end get
 
@@ -140,7 +140,7 @@ class Http_req {
 
 		} // end if
 
-		return Unirest\Request::post($url, $header, $body);
+		return Unirest\Request::post($uri, $header, $body);
 
 	} // end post
 
@@ -158,7 +158,7 @@ class Http_req {
 
 		} // end if
 
-		return Unirest\Request::put($url, $header, $body);
+		return Unirest\Request::put($uri, $header, $body);
 
 	} // end put
 
@@ -176,7 +176,7 @@ class Http_req {
 
 		} // end if
 
-		return Unirest\Request::patch($url, $header, $body);
+		return Unirest\Request::patch($uri, $header, $body);
 
 	} // end post
 
@@ -194,7 +194,7 @@ class Http_req {
 
 		} // end if
 
-		return Unirest\Request::post($url, $header, $body);
+		return Unirest\Request::post($uri, $header, $body);
 
 	} // end delete
 
