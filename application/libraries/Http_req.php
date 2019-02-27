@@ -28,8 +28,6 @@ class Http_req {
 
 	private static $body 	= NULL;
 
-	private static $method 	= 'GET';
-
 	protected function get_curl_method($method) {
 
 		$curlauth	= $this->config->item('curlauth');
@@ -337,6 +335,69 @@ class Http_req {
 		Unirest\Request::jsonOpts($isassoc, $rekusi, $options);
 
 	} // end set_JsonOpt
+
+	publicf function set_Proxy($ip, $port = 1080, $tunneling = FALSE, $type = CURLPROXY_HTTP) {
+
+		if ($port != 1080) {
+			
+			Unirest\Request::proxy($ip, $port, $type);
+
+		} else if ($tunneling) {
+
+			Unirest\Request::proxy($ip, $port, $type, TRUE);
+
+		} else {
+
+			Unirest\Request::proxy($ip);
+
+		} // end if else
+
+	} // end of set_Proxy
+
+	public function curl_options($options) {
+
+		if (is_string($options) && strtolower($options) == 'clear') {
+
+			Unirest\Request::clearCurlOpts();
+			
+		} else {
+
+			Unirest\Request::curlOpt($options);
+		
+		} // end if else
+
+	} // end curl_options
+
+	public function ssl_validation($bool = TRUE) {
+
+		Unirest\Request::verifyPeer($bool);
+
+	} // end ssl_validation
+
+	public function utility($set = 'info') {
+
+		switch (strtolower($set)) {
+
+			case 'info':
+				
+				return Unirest\Request::getInfo();
+
+				break;
+
+			case 'handle':
+				
+				return Unirest\Request::getCurlHandle();
+
+				break;
+			
+			default:
+				
+				return Unirest\Request::getInfo();
+
+				break;
+		}
+
+	} // end utility
 
 	public function get_File($path, $typeread = 'text/plain') {
 
