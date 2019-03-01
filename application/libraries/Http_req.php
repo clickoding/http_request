@@ -336,7 +336,7 @@ class Http_req {
 
 	} // end set_JsonOpt
 
-	publicf function set_Proxy($ip, $port = 1080, $tunneling = FALSE, $type = CURLPROXY_HTTP) {
+	public function set_Proxy($ip, $port = 1080, $tunneling = FALSE, $type = CURLPROXY_HTTP) {
 
 		if ($port != 1080) {
 			
