@@ -28,9 +28,34 @@ class Http_req {
 
 	private static $body 	= NULL;
 
+	public function __construct() {
+
+		$this->load->config('http_req', TRUE);
+
+	} // end __construct()
+
+	protected function get_method_req($method) {
+		
+		$methodreq	= $this->config->item('http_req');
+		$arrmeth	= $methodreq['method'];
+		$method 	= strtolower($method);
+
+		$hasil		= $arrmeth['get'];
+
+		if (array_key_exists($method, $arrmeth)) {
+			
+			$hasil	= $arrmeth[$method];
+
+		} // end if
+
+		return $hasil;
+
+	} // end get_method_req
+
 	protected function get_curl_method($method) {
 
-		$curlauth	= $this->config->item('curlauth');
+		$arrnew 	= $this->config->item('http_req');
+		$curlauth	= $arrnew['curlauth'];
 
 		$method 	= (string) $method;
 		$method 	= strtolower($method);
@@ -47,47 +72,23 @@ class Http_req {
 
 	} // end get_curl_method
 
-	protected function get_method_req($method) {
-
-		$methodreq	= $this->config->item('method');
-		$method 	= strtolower($method);
-
-		$hasil		= $methodreq['get'];
-
-		if (array_key_exists($method, $methodreq)) {
-			
-			$hasil	= $methodreq[$method];
-
-		} // end if
-
-		return $hasil;
-
-	} // end get_method_req
-
 	protected function send($method = 'GET', $url = '', $header = NULL, $body = NULL) {
 
-		if (isset($this->mashape)) {
+		if (isset(self::$mashape)) {
 			
-			Unirest\Request::setMashapeKey($this->mashape);
+			Unirest\Request::setMashapeKey(self::$mashape);
 
 		} // end if
 
-		if (isset($this->timeout) && $this->timeout > 0) {
+		if (isset(self::$timeout) && self::$timeout > 0) {
 			
-			Unirest\Request::timeout($this->timeout); // 5s timeout
+			Unirest\Request::timeout(self::$timeout); // 5s timeout
 
 		} // end if
 
 		return Unirest\Request::send(strtoupper($method), $url, $header, $body);
 
 	} // end basic_send
-
-	public function __construct() {
-
-		$this->load->config('http_req', TRUE);
-		$this->load->helper('url');
-
-	} // end __construct()
 
 	/**
 	 * __get
