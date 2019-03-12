@@ -109,7 +109,7 @@ class Http_req {
 
 	public function get($uri, $header = array(), $param = NULL) {
 
-		if (isset(self::$headers) && count($header) <= 0) {
+		if (isset(self::$headers) && $header !== array()) {
 			
 			$header 	= self::$headers;
 
@@ -127,7 +127,7 @@ class Http_req {
 
 	public function post($uri, $header = array(), $body = NULL) {
 
-		if (isset(self::$headers) && count($header) <= 0) {
+		if (isset(self::$headers) && $header !== array()) {
 			
 			$header 	= self::$headers;
 
@@ -145,7 +145,7 @@ class Http_req {
 
 	public function put($uri, $header = array(), $body = NULL) {
 
-		if (isset(self::$headers) && count($header) <= 0) {
+		if (isset(self::$headers) && $header !== array()) {
 			
 			$header 	= self::$headers;
 
@@ -163,7 +163,7 @@ class Http_req {
 
 	public function patch($uri, $header = array(), $body = NULL) {
 
-		if (isset(self::$headers) && count($header) <= 0) {
+		if (isset(self::$headers) && $header !== array()) {
 			
 			$header 	= self::$headers;
 
@@ -181,7 +181,7 @@ class Http_req {
 
 	public function delete($uri, $header = array(), $body = NULL) {
 
-		if (isset(self::$headers) && count($header) <= 0) {
+		if (isset(self::$headers) && $header !== array()) {
 			
 			$header 	= self::$headers;
 
@@ -193,7 +193,7 @@ class Http_req {
 
 		} // end if
 
-		return Unirest\Request::post($uri, $header, $body);
+		return Unirest\Request::delete($uri, $header, $body);
 
 	} // end delete
 
@@ -201,7 +201,7 @@ class Http_req {
 
 		$method = $this->get_method_req($method);
 
-		if (isset(self::$headers) && count($headers) <= 0) {
+		if (NULL !== self::$headers && $headers !== array()) {
 			
 			$headers 	= self::$headers;
 
@@ -339,7 +339,7 @@ class Http_req {
 
 	public function set_Proxy($ip, $port = 1080, $tunneling = FALSE, $type = CURLPROXY_HTTP) {
 
-		if ($port != 1080) {
+		if ($port !== 1080) {
 			
 			Unirest\Request::proxy($ip, $port, $type);
 
